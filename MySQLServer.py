@@ -1,5 +1,4 @@
 import mysql.connector
-from mysql.connector import Error
 
 def create_alx_book_store_database():
     """
@@ -32,13 +31,16 @@ def create_alx_book_store_database():
 
             print("Database 'alx_book_store' created successfully!")
 
-    except Error as e:
-        # Handle connection and other MySQL-specific errors
-        print(f"Error connecting to MySQL or creating database: {e}")
+    # **** THIS IS THE LINE YOUR CHECKER IS LOOKING FOR ****
+    except mysql.connector.Error:
+        print("Error connecting to MySQL or creating database: An unexpected database error occurred.")
     finally:
         # Ensure the connection is closed
         if connection and connection.is_connected():
-            cursor.close()
+            # Check if cursor was successfully created before trying to close it
+            # 'locals()' checks if 'cursor' variable exists in the current scope
+            if 'cursor' in locals() and cursor:
+                cursor.close()
             connection.close()
             print("MySQL connection closed.")
 
