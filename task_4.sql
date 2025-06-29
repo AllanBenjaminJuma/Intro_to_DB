@@ -3,6 +3,10 @@
 -- Use the alx_book_store database explicitly.
 USE alx_book_store;
 
--- Prints the full CREATE TABLE statement for the 'books' table,
--- which includes its full description (columns, types, constraints, etc.).
-SHOW CREATE TABLE Books;
+SELECT
+    COLUMN_NAME,
+    COLUMN_TYPE
+FROM
+    INFORMATION_SCHEMA.COLUMNS
+WHERE
+    TABLE_SCHEMA = 'alx_book_store' AND TABLE_NAME = 'Books';
